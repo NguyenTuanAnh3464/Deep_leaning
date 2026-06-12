@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kết quả dự báo RNN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="panel">
+            <h1>Kết quả dự báo</h1>
+
+            {% if error %}
+            <div class="message error">{{ error }}</div>
+            {% else %}
+            <div class="message success">
+                Giá trị dự báo tiếp theo cho cột <strong>{{ target }}</strong>:
+                <span>{{ "%.4f"|format(prediction) }}</span>
+            </div>
+            {% endif %}
+
+            <form action="{{ url_for('predict') }}" method="post" class="form">
+                <label for="model_key">Chọn mô hình</label>
+                <select id="model_key" name="model_key">
+                    {% for key, label in options.items() %}
+                    <option value="{{ key }}" {% if key == selected_key %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="time_steps">Số time_steps</label>
+                <input id="time_steps" name="time_steps" type="number" min="3" max="60" value="{{ time_steps }}">
+
+                <label for="recent_values">Nhập các giá trị gần nhất, cách nhau bằng dấu phẩy</label>
+                <textarea id="recent_values" name="recent_values" rows="5">{{ recent_values }}</textarea>
+
+                <button type="submit">Dự báo lại</button>
+            </form>
+
+            <a class="back-link" href="{{ url_for('index') }}">Quay về trang chủ</a>
+        </section>
+    </main>
+</body>
+</html>

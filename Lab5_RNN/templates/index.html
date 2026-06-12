@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ứng dụng dự báo chuỗi thời gian bằng RNN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="panel">
+            <h1>Ứng dụng dự báo chuỗi thời gian bằng RNN</h1>
+            <form action="{{ url_for('predict') }}" method="post" class="form">
+                <label for="model_key">Chọn mô hình</label>
+                <select id="model_key" name="model_key">
+                    {% for key, label in options.items() %}
+                    <option value="{{ key }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="time_steps">Số time_steps</label>
+                <input id="time_steps" name="time_steps" type="number" min="3" max="60" value="12">
+
+                <label for="recent_values">Nhập 12 giá trị gần nhất, cách nhau bằng dấu phẩy</label>
+                <textarea id="recent_values" name="recent_values" rows="5" placeholder="100, 102, 105, 107, 108, 110, 112, 115, 116, 118, 120, 123"></textarea>
+
+                <button type="submit">Dự báo</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

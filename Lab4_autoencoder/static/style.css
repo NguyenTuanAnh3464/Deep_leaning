@@ -1,0 +1,138 @@
+:root {
+    --bg: #eef2f3;
+    --panel: #ffffff;
+    --text: #1f2933;
+    --muted: #52616b;
+    --primary: #0f766e;
+    --primary-dark: #115e59;
+    --border: #d9e2ec;
+    --danger-bg: #fff1f2;
+    --danger-text: #be123c;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    background: linear-gradient(135deg, #eef2f3 0%, #d7e3ea 100%);
+}
+
+.shell {
+    width: min(920px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 56px 0;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    box-shadow: 0 16px 36px rgba(31, 41, 51, 0.12);
+}
+
+h1 {
+    margin: 0 0 24px;
+    font-size: clamp(26px, 4vw, 38px);
+    line-height: 1.15;
+}
+
+.predict-form {
+    display: grid;
+    gap: 14px;
+}
+
+label {
+    font-weight: 700;
+    color: var(--muted);
+}
+
+select,
+input[type="file"] {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 16px;
+    background: #ffffff;
+}
+
+button,
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-height: 44px;
+    border: 0;
+    border-radius: 6px;
+    padding: 0 18px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    background: var(--primary);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover,
+.back-link:hover {
+    background: var(--primary-dark);
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: minmax(220px, 360px) 1fr;
+    gap: 28px;
+    align-items: center;
+}
+
+.preview {
+    width: 100%;
+    max-height: 380px;
+    object-fit: contain;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.result-info {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.message {
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    font-weight: 700;
+}
+
+.error {
+    color: var(--danger-text);
+    background: var(--danger-bg);
+}
+
+.back-link {
+    margin-top: 24px;
+}
+
+@media (max-width: 720px) {
+    .shell {
+        padding: 24px 0;
+    }
+
+    .panel {
+        padding: 22px;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng dụng nhận dạng ảnh bằng Autoencoder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <section class="panel">
+            <h1>Ứng dụng nhận dạng ảnh bằng Autoencoder</h1>
+            <form action="/" method="post" enctype="multipart/form-data" class="predict-form">
+                <label for="task">Chọn mô hình</label>
+                <select id="task" name="task" required>
+                    {% for key, task in tasks.items() %}
+                    <option value="{{ key }}">{{ task.title }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="image">Upload ảnh</label>
+                <input id="image" type="file" name="image" accept="image/*" required>
+
+                <button type="submit">Dự đoán</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
+

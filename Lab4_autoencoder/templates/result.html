@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả dự đoán</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <section class="panel">
+            <h1>Kết quả dự đoán</h1>
+
+            {% if result.error %}
+            <div class="message error">{{ result.error }}</div>
+            {% else %}
+            <div class="result-grid">
+                <div>
+                    <img src="{{ result.image_url }}" alt="Ảnh đã upload" class="preview">
+                </div>
+                <div class="result-info">
+                    <p><strong>Mô hình đã chọn:</strong> {{ result.task_title }}</p>
+                    <p><strong>Nhãn dự đoán:</strong> {{ result.label }}</p>
+                    <p><strong>Độ tin cậy:</strong> {{ result.confidence }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <a class="back-link" href="{{ url_for('index') }}">Quay lại trang chủ</a>
+        </section>
+    </main>
+</body>
+</html>
+

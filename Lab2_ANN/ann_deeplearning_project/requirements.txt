@@ -1,0 +1,10 @@
+tensorflow
+tensorflow-datasets
+numpy
+pandas
+matplotlib
+scikit-learn
+flask
+pillow
+joblib
+ucimlrepo

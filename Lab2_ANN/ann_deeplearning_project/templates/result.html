@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kết quả dự đoán</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <section class="panel result">
+      <h1>Kết quả dự đoán</h1>
+
+      {% if result.error %}
+        <p class="notice">{{ result.error }}</p>
+      {% else %}
+        {% if result.image_url %}
+          <img class="preview" src="{{ result.image_url }}" alt="Ảnh đã upload">
+        {% endif %}
+        <p><strong>Bài toán:</strong> {{ result.task_title }}</p>
+        <p><strong>Nhãn dự đoán:</strong> {{ result.label }}</p>
+        <p><strong>Độ tin cậy:</strong> {{ result.confidence }}</p>
+      {% endif %}
+
+      <a class="back-link" href="{{ url_for('index') }}">Quay lại</a>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ứng dụng ANN nhận dạng và dự báo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <section class="panel">
+      <h1>Ứng dụng ANN nhận dạng và dự báo</h1>
+
+      <form method="post" enctype="multipart/form-data" class="predict-form">
+        <label for="task">Chọn bài toán</label>
+        <select name="task" id="task">
+          <option value="cifar10">CIFAR10</option>
+          <option value="mnist">MNIST</option>
+          <option value="catdog">Cat/Dog</option>
+          <option value="adult">Adult Income</option>
+          <option value="car">Car Evaluation</option>
+        </select>
+
+        <div class="form-section" data-section="image">
+          <label for="image">Upload ảnh</label>
+          <input type="file" name="image" id="image" accept="image/*">
+        </div>
+
+        <div class="form-section hidden" data-section="adult">
+          <div class="grid">
+            <label>Age <input name="age" type="number" value="30"></label>
+            <label>fnlwgt <input name="fnlwgt" type="number" value="200000"></label>
+            <label>Education-num <input name="education-num" type="number" value="10"></label>
+            <label>Capital-gain <input name="capital-gain" type="number" value="0"></label>
+            <label>Capital-loss <input name="capital-loss" type="number" value="0"></label>
+            <label>Hours/week <input name="hours-per-week" type="number" value="40"></label>
+            {% for field, options in adult_options.items() %}
+              <label>{{ field }}
+                <select name="{{ field }}">
+                  {% for option in options %}
+                    <option value="{{ option }}">{{ option }}</option>
+                  {% endfor %}
+                </select>
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="form-section hidden" data-section="car">
+          <div class="grid">
+            {% for field, options in car_options.items() %}
+              <label>{{ field }}
+                <select name="{{ field }}">
+                  {% for option in options %}
+                    <option value="{{ option }}">{{ option }}</option>
+                  {% endfor %}
+                </select>
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+
+        <button type="submit">Dự đoán</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const taskSelect = document.querySelector("#task");
+    const sections = document.querySelectorAll(".form-section");
+
+    function updateForm() {
+      const task = taskSelect.value;
+      sections.forEach((section) => section.classList.add("hidden"));
+      if (["cifar10", "mnist", "catdog"].includes(task)) {
+        document.querySelector('[data-section="image"]').classList.remove("hidden");
+      } else {
+        document.querySelector(`[data-section="${task}"]`).classList.remove("hidden");
+      }
+    }
+
+    taskSelect.addEventListener("change", updateForm);
+    updateForm();
+  </script>
+</body>
+</html>

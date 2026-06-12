@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kết quả nhận dạng ảnh</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="panel">
+            <h1>{{ task_name }}</h1>
+            <div class="result-grid">
+                <img class="preview" src="{{ url_for('static', filename=image_path) }}" alt="Ảnh upload">
+                <div>
+                    <p><strong>Nhãn dự đoán:</strong> {{ label }}</p>
+                    <p><strong>Độ tin cậy:</strong> {{ confidence }}</p>
+                    <a class="link-button" href="{{ url_for('index') }}">Quay lại</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+

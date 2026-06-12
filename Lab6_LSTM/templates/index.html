@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ứng dụng LSTM</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="panel">
+            <h1>Ứng dụng LSTM nhận dạng ảnh và sinh văn bản</h1>
+
+            {% if message %}
+                <div class="alert">{{ message }}</div>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data" class="form">
+                <label for="task">Chọn chức năng</label>
+                <select id="task" name="task">
+                    {% for key, value in image_tasks.items() %}
+                        <option value="{{ key }}" {% if selected_task == key %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                    {% for key, value in text_tasks.items() %}
+                        <option value="{{ key }}" {% if selected_task == key %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
+
+                <div id="image-fields" class="field-group">
+                    <label for="image">Upload ảnh</label>
+                    <input id="image" name="image" type="file" accept="image/*">
+                </div>
+
+                <div id="text-fields" class="field-group">
+                    <label for="seed_text">Seed text</label>
+                    <textarea id="seed_text" name="seed_text" rows="4" placeholder="Nhập vài từ bắt đầu..."></textarea>
+
+                    <label for="next_words">Số từ muốn sinh</label>
+                    <input id="next_words" name="next_words" type="number" min="1" max="50" value="20">
+                </div>
+
+                <button type="submit">Thực hiện</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        const taskSelect = document.getElementById("task");
+        const imageFields = document.getElementById("image-fields");
+        const textFields = document.getElementById("text-fields");
+        const textTasks = new Set(["truyen_kieu", "twitter"]);
+
+        function syncFields() {
+            const isTextTask = textTasks.has(taskSelect.value);
+            imageFields.style.display = isTextTask ? "none" : "grid";
+            textFields.style.display = isTextTask ? "grid" : "none";
+        }
+
+        taskSelect.addEventListener("change", syncFields);
+        syncFields();
+    </script>
+</body>
+</html>
+
